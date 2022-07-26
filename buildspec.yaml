@@ -12,13 +12,6 @@ phases:
     commands:
       - echo Entered the pre_build phase...
       - echo Logging in to Amazon EKS...
-      - role=$(aws sts assume-role --role-arn arn:aws:iam::xxxxxxxxxxx:role/dev-role --role-session-name ekscicdrole)
-      - KEY=$(echo $role | jq ".Credentials.AccessKeyId" --raw-output)
-      - SECRET=$(echo $role | jq ".Credentials.SecretAccessKey" --raw-output)
-      - TOKEN=$(echo $role | jq ".Credentials.SessionToken" --raw-output)
-      - export AWS_ACCESS_KEY_ID=$KEY
-      - export AWS_SECRET_ACCESS_KEY=$SECRET
-      - export AWS_SESSION_TOKEN=$TOKEN
       - aws sts get-caller-identity
       - aws eks --region us-east-1 update-kubeconfig --name terra-cicd-cluster
       - cat ~/.kube/config
