@@ -29,8 +29,8 @@ phases:
       - echo Build started on `date`
       - kubectl get svc -A
       - kubectl create namespace eks-sample-app
-      - kubectl apply -f eks-sample-depl-nginx.yml
-      - kubectl apply -f eks-sample-service-ngnx.yml
+      - kubectl apply -f eks-sample-deployment.yaml
+      - kubectl apply -f eks-sample-service.yaml
   post_build:
     commands:
       - echo Build completed on `date`
