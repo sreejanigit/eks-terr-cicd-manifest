@@ -12,6 +12,7 @@ phases:
     commands:
       - echo Entered the pre_build phase...
       - echo Logging in to Amazon EKS...
+      - aws sts get-caller-identity
       - aws eks --region us-east-1 update-kubeconfig --name terra-cicd-cluster
   build:
     commands:
