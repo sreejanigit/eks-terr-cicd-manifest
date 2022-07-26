@@ -14,7 +14,7 @@ phases:
       - echo Entered the pre_build phase...
       - echo Logging in to Amazon EKS...
       - role=$(aws sts assume-role --role-arn arn:aws:iam::077344799555:role/devopsthehardway-eks-iam-role --role-session-name codebuild_eks_session)
-                  
+      - ROLE="arn:aws:iam::077344799555:role/eks-cb-manif"           
       - KEY=$(echo $role | jq ".Credentials.AccessKeyId" --raw-output)
       - SECRET=$(echo $role | jq ".Credentials.SecretAccessKey" --raw-output)
       - TOKEN=$(echo $role | jq ".Credentials.SessionToken" --raw-output)
@@ -23,6 +23,8 @@ phases:
       - export AWS_SESSION_TOKEN=$TOKEN
       - aws sts get-caller-identity
       - aws eks --region us-east-1 update-kubeconfig --name terra-cicd-cluster
+      - kubectl get -n kube-system configmap/aws-auth -o yaml | awk "/mapRoles: \|/{print;print \"$ROLE\";next}1" > /tmp/aws-auth-patch.yml
+      - kubectl patch configmap/aws-auth -n kube-system --patch "$(cat /tmp/aws-auth-patch.yml)"
       - kubectl version
       
   build:
