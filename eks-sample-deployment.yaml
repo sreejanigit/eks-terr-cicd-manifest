@@ -28,10 +28,10 @@ spec:
                 - arm64
       containers:
       - name: aem
-        image: 077344799555.dkr.ecr.us-east-2.amazonaws.com/aem-author:latest
+        image: 077344799555.dkr.ecr.us-east-1.amazonaws.com/aem-base-image
         ports:
         - name: http
-          containerPort: 4502
+          containerPort: 3000
         imagePullPolicy: IfNotPresent
       nodeSelector:
         kubernetes.io/os: linux
