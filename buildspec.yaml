@@ -12,7 +12,7 @@ phases:
     commands:
       - echo Entered the pre_build phase...
       - echo Logging in to Amazon EKS...
-      - aws sts assume-role --role-arn arn:aws:iam::xxxxxxxxxxx:role/dev-role --role-session-name ekscicdrole
+      - role=aws sts assume-role --role-arn arn:aws:iam::xxxxxxxxxxx:role/dev-role --role-session-name ekscicdrole
       - KEY=$(echo $role | jq ".Credentials.AccessKeyId" --raw-output)
       - SECRET=$(echo $role | jq ".Credentials.SecretAccessKey" --raw-output)
       - TOKEN=$(echo $role | jq ".Credentials.SessionToken" --raw-output)
