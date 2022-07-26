@@ -4,9 +4,10 @@ phases:
   install:
     commands:
       - echo Installing app dependencies...
-      - curl -o kubectl https://amazon-eks.s3.us-east-1.amazonaws.com/1.15.10/2020-02-22/bin/linux/amd64/kubectl   
+      - curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubectl
       - chmod +x ./kubectl
-      - mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+      - mv -f ./kubectl /usr/local/bin/kubectl
+      #- mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
      
   pre_build:
     commands:
@@ -15,11 +16,12 @@ phases:
       
       - aws sts get-caller-identity
       - aws eks --region us-east-1 update-kubeconfig --name terra-cicd-cluster
-      - cat ~/.kube/config
-      - kubectl get svc
+      - kubectl version
+      
   build:
     commands:
       - echo Build started on `date`
+      - kubectl get svc -A
       - kubectl apply -f eks-sample-depl-nginx.yaml
       - kubectl apply -f eks-sample-service-ngnx.yaml
   post_build:
