@@ -28,8 +28,8 @@ phases:
     commands:
       - echo Build started on `date`
       - kubectl get svc -A
-      - kubectl apply -f eks-sample-depl-nginx.yaml
-      - kubectl apply -f eks-sample-service-ngnx.yaml
+      - kubectl apply -f eks-sample-depl-nginx.yml
+      - kubectl apply -f eks-sample-service-ngnx.yml
   post_build:
     commands:
       - echo Build completed on `date`
