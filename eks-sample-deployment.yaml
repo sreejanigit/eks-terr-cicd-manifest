@@ -28,7 +28,7 @@ spec:
                 - arm64
       containers:
       - name: aem
-        image: 077344799555.dkr.ecr.us-east-1.amazonaws.com/aem-author
+        image: 077344799555.dkr.ecr.us-east-1.amazonaws.com/aem-base-image:latest
         ports:
         - name: http
           containerPort: 4502
