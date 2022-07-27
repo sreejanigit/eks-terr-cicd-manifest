@@ -31,6 +31,8 @@ phases:
       - kubectl create namespace eks-sample-app
       - kubectl apply -f eks-sample-deployment.yaml
       - kubectl apply -f eks-sample-service.yaml
+      - kubectl -n eks-sample-app expose deployment eks-sample-linux-deployment --type=LoadBalancer --name=eks-sample-linux-service-lb
+      - kubectl -n eks-sample-app describe service eks-sample-linux-service-lb
   post_build:
     commands:
       - echo Build completed on `date`
