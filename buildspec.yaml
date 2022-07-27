@@ -10,7 +10,7 @@ phases:
      
   pre_build:
     commands:
-      - echo Entered the pre_build phase....
+      - echo Entered the pre_build phase..
       - echo Logging in to Amazon EKS......
 #       - role=$(aws sts assume-role --role-arn arn:aws:iam::077344799555:role/devopsthehardway-eks-iam-role --role-session-name codebuild_eks_session)
              
