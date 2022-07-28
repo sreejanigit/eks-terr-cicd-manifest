@@ -15,6 +15,7 @@ spec:
       labels:
         app: eks-sample-linux-app
     spec:      
+    
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
