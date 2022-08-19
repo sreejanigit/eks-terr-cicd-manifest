@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eks-sample-linux-deployment
+  namespace: eks-sample-app2
+  labels:
+    app: eks-sample-linux-app2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eks-sample-linux-app2
+  template:
+    metadata:
+      labels:
+        app: eks-sample-linux-app2
+    spec:      
+    
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+      containers:
+      - name: aem
+        image: 077344799555.dkr.ecr.us-east-1.amazonaws.com/aem-publisher:latest
+        ports:
+        - name: http
+          containerPort: 4503
+        imagePullPolicy: IfNotPresent
+      nodeSelector:
+        kubernetes.io/os: linux
